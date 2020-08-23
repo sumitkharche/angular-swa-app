@@ -24,8 +24,8 @@ export class AuthService {
 
   loggedIn() {
     let userInfo;
-     this.http.get<any>('/.auth/me')
-    .subscribe(data => {
+     this.http.get<any>('/.auth/me').toPromise()
+    .then(data => {
       console.log(data);
         userInfo = data.clientPrincipal != null ? data.clientPrincipal : null;
       console.log("From loggedIn inside subscribe:"+ userInfo);
@@ -41,8 +41,8 @@ export class AuthService {
   }
 
   getLoggedInUserData(){
-    this.http.get<any>('/.auth/me')
-    .subscribe(data => {
+    this.http.get<any>('/.auth/me').toPromise()
+    .then(data => {
       console.log(data);
       const userInfo = data.clientPrincipal != null ? data.clientPrincipal : null;
       console.log("From getLoggedInUserData:"+ userInfo);
