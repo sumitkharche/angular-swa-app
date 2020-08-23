@@ -13,8 +13,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.userInfo = this.authService.getLoggedInUserData()
-    console.log(this.userInfo);
-    
+    console.log("From dashboard:"+ this.userInfo);
   }
 
 }

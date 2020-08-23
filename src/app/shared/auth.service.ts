@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http'
 })
 export class AuthService {
 
-
+  userInfo: any;
   constructor(private http: HttpClient) { }
 
   loginUser(provider){
@@ -23,18 +23,24 @@ export class AuthService {
   }
 
   loggedIn() {
-    // this.http.get<any>('/.auth/me')
-    // .subscribe(data => {
-    //   console.log(data);      
-    // });
-    this.getLoggedInUserData()
-    return true;
+    let userInfo = this.getLoggedInUserData()
+    console.log("From loggedId:"+ userInfo );
+    
+    if(userInfo == null)
+      {
+        return false;
+      }else{
+        return true;
+      }
   }
 
   getLoggedInUserData(){
     this.http.get<any>('/.auth/me')
     .subscribe(data => {
-      console.log(data);        
+      console.log(data);
+      const userInfo = data.clientPrincipal != null ? data.clientPrincipal : null;
+      console.log("From getLoggedInUserData:"+ userInfo);
+      return userInfo;
     });
   }
 
