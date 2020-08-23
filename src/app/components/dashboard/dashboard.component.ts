@@ -12,7 +12,10 @@ export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.userInfo = this.authService.getLoggedInUserData()
+   this.authService.getLoggedInUserData()
+   .then(data=>{
+    this.userInfo = data;
+   })
     console.log("From dashboard:"+ this.userInfo);
   }
 

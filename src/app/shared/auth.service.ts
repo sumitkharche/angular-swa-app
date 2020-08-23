@@ -22,25 +22,27 @@ export class AuthService {
     window.location.href = url;
   }
 
-  async loggedIn() {
-    let userInfo = await this.getLoggedInUserData()
-    console.log("From loggedId:"+ userInfo );
-    if(userInfo == null)
+   loggedIn() {
+     this.getLoggedInUserData()
+     .then(data=>{
+      let userInfo = data;
+      console.log("From loggedId:"+ userInfo );
+      if(userInfo == null)
       {
         return false;
       }else{
         return true;
       }
+     })
+     return false;
   }
 
   async getLoggedInUserData(){
     const data = await this.http.get<any>('/.auth/me').toPromise()
-    data.then(jsonData => {
-      console.log(jsonData);
-      const userInfo = jsonData.clientPrincipal != null ? jsonData.clientPrincipal : null;
+      console.log(data);
+      const userInfo = data.clientPrincipal != null ? data.clientPrincipal : null;
       console.log("From getLoggedInUserData:"+ userInfo);
       return userInfo;
-    });
   }
 
 }
