@@ -39,10 +39,10 @@ export class AuthService {
 
   isUserLoggedIn(){
     let data = localStorage.getItem("UserDetails");
-    if(data != null){
-      return false; 
+    if(data != "null"){
+      return true; 
     }else{
-      return true;
+      return false;
     }
   }
 
