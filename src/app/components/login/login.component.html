@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row">
+        <div class="login-form">
+            <div class="form">
+                <h2 class="text-center">Sign in</h2>
+                <div class="text-center social-btn">
+                    <a *ngFor="let provider of providers" (click)="loginUser(provider.key)"
+                        class="btn btn-block btn-{{provider.btnColor}}">
+                        <i class="fa fa-{{provider.key}}"></i> Sign in with <b>{{provider.value}}</b>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
