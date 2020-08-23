@@ -10,20 +10,26 @@ export class AuthService {
 
   loginUser(provider){
     const { pathname } = window.location;
-    const redirect = `post_login_redirect_uri=${pathname}dashboard`;
+    const redirect = `post_login_redirect_uri=/dashboard`;
     const url = `/.auth/login/${provider}?${redirect}`;
     window.location.href = url;
   }
   
   logoutUser(){
     const { pathname } = window.location;
-    const redirect = `post_logout_redirect_uri=${pathname}login`;
+    const redirect = `post_logout_redirect_uri=/`;
     const url = `/.auth/logout?${redirect}`;
     window.location.href = url;
   }
 
   loggedIn() {
-    let userInfo = this.getLoggedInUserData()
+    let userInfo;
+     this.http.get<any>('/.auth/me')
+    .subscribe(data => {
+      console.log(data);
+        userInfo = data.clientPrincipal != null ? data.clientPrincipal : null;
+      console.log("From loggedIn inside subscribe:"+ userInfo);
+    });
     console.log("From loggedId:"+ userInfo );
     
     if(userInfo == null)
