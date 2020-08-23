@@ -22,16 +22,9 @@ export class AuthService {
     window.location.href = url;
   }
 
-  loggedIn() {
-    let userInfo;
-     this.http.get<any>('/.auth/me').toPromise()
-    .then(data => {
-      console.log(data);
-        userInfo = data.clientPrincipal != null ? data.clientPrincipal : null;
-      console.log("From loggedIn inside subscribe:"+ userInfo);
-    });
+  async loggedIn() {
+    let userInfo = await this.getLoggedInUserData()
     console.log("From loggedId:"+ userInfo );
-    
     if(userInfo == null)
       {
         return false;
@@ -40,11 +33,11 @@ export class AuthService {
       }
   }
 
-  getLoggedInUserData(){
-    this.http.get<any>('/.auth/me').toPromise()
-    .then(data => {
-      console.log(data);
-      const userInfo = data.clientPrincipal != null ? data.clientPrincipal : null;
+  async getLoggedInUserData(){
+    const data = await this.http.get<any>('/.auth/me').toPromise()
+    data.then(jsonData => {
+      console.log(jsonData);
+      const userInfo = jsonData.clientPrincipal != null ? jsonData.clientPrincipal : null;
       console.log("From getLoggedInUserData:"+ userInfo);
       return userInfo;
     });
