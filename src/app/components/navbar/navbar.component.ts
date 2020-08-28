@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Router } from '@angular/router';
 
@@ -8,18 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  @Input() userInfo = null;
   isExpanded = false;
-  userInfo: any;
+  //userInfo: any;
   isUserLoggedIn = false;
   constructor(public authService: AuthService) { }
 
-    async ngOnInit() {
-    this.userInfo = await this.authService.getUserInfo();
-    if(this.userInfo != null){
-      this.isUserLoggedIn = true;
-    }
-    console.log(this.userInfo);
+   ngOnInit() {
+    // this.userInfo = await this.authService.userInfo();
+    // if(this.userInfo != null){
+    //   this.isUserLoggedIn = true;
+    // }
+    console.log("Navbar: " + this.userInfo);
     
   }
   collapse() {
