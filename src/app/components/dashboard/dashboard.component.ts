@@ -11,8 +11,8 @@ export class DashboardComponent implements OnInit {
   userInfo: any;
   constructor(private authService: AuthService) { }
 
-   ngOnInit() {
-   this.userInfo = this.authService.getLoggedInUserData()
+   async ngOnInit() {
+   this.userInfo = this.authService.getUserInfo();
     console.log("From dashboard:"+ this.userInfo);
   }
 

@@ -10,13 +10,16 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   isExpanded = false;
+  userInfo: any;
   isUserLoggedIn = false;
   constructor(public authService: AuthService) { }
 
     async ngOnInit() {
-    await this.authService.loggedIn();
-    this.isUserLoggedIn = this.authService.isUserLoggedIn();
-    console.log(this.isUserLoggedIn);
+    this.userInfo = await this.authService.userInfo();
+    if(this.userInfo != null){
+      this.isUserLoggedIn = true;
+    }
+    console.log(this.userInfo);
     
   }
   collapse() {

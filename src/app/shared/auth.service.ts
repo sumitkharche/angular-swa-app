@@ -23,29 +23,32 @@ export class AuthService {
     window.location.href = url;
   }
 
-   loggedIn() {
-     let userInfo = this.getLoggedInUserData();
-     console.log("From loggedId:"+ userInfo );
-     if(userInfo && userInfo.clientPrincipal != null)
-     {
-       return true;
-     }
-     else{
-       return false;
-     }
-  }
+  //  loggedIn() {
+  //    let userInfo = this.getLoggedInUserData()
+  //    .subscribe(data =>{
+  //     return data;
+  //   })
+  //    console.log("From loggedId:"+ userInfo );
+  //    if(userInfo && userInfo.clientPrincipal != null)
+  //    {
+  //      return true;
+  //    }
+  //    else{
+  //      return false;
+  //    }
+  // }
 
   getLoggedInUserData(){
     let userData;  
-    this.http.get<any>('/.auth/me')
-          .subscribe(data =>{
-            userData = data;
-          })
+    return this.http.get<any>('/.auth/me');
+          // .subscribe(data =>{
+          //   userData = data;
+          // })
     //console.log(userData);
     // const userInfo = userData.clientPrincipal != null ? userData.clientPrincipal : null;
-     console.log("From getLoggedInUserData:"+ userData);
+    // console.log("From getLoggedInUserData:"+ userData);
     // localStorage.setItem('UserDetails',userInfo);
-    return userData;
+    //return userData;
   }
 
   isUserLoggedIn(){
@@ -54,6 +57,18 @@ export class AuthService {
       return true; 
     }else{
       return false;
+    }
+  }
+
+  async getUserInfo() {
+    try {
+      const response = await fetch('/.auth/me');
+      const payload = await response.json();
+      const { clientPrincipal } = payload;
+      return clientPrincipal;
+    } catch (error) {
+      console.error('No profile could be found');
+      return undefined;
     }
   }
 
