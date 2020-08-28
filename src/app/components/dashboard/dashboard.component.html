@@ -1,4 +1,4 @@
-<app-navbar [userInfo]="userInfo"></app-navbar>
+<app-navbar *ngIf="userInfo" [userInfo]="userInfo"></app-navbar>
 <div *ngIf="userInfo" class="container">
     <p>dashboard works!</p>
     Welcome {{userInfo?.userDetails}}!
