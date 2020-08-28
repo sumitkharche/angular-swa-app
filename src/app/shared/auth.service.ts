@@ -23,18 +23,29 @@ export class AuthService {
     window.location.href = url;
   }
 
-   async loggedIn() {
-     let userInfo = await this.getLoggedInUserData();
-      console.log("From loggedId:"+ userInfo );
+   loggedIn() {
+     let userInfo = this.getLoggedInUserData();
+     console.log("From loggedId:"+ userInfo );
+     if(userInfo && userInfo.clientPrincipal != null)
+     {
+       return true;
+     }
+     else{
+       return false;
+     }
   }
 
-  async getLoggedInUserData(){
-    const data = await this.http.get<any>('/.auth/me').toPromise();
-    console.log(data);
-    const userInfo = data.clientPrincipal != null ? data.clientPrincipal : null;
-    console.log("From getLoggedInUserData:"+ userInfo);
-    localStorage.setItem('UserDetails',userInfo);
-    return userInfo;
+  getLoggedInUserData(){
+    let userData;  
+    this.http.get<any>('/.auth/me')
+          .subscribe(data =>{
+            userData = data;
+          })
+    //console.log(userData);
+    // const userInfo = userData.clientPrincipal != null ? userData.clientPrincipal : null;
+     console.log("From getLoggedInUserData:"+ userData);
+    // localStorage.setItem('UserDetails',userInfo);
+    return userData;
   }
 
   isUserLoggedIn(){
