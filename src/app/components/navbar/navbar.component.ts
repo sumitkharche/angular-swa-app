@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthService) { }
 
     async ngOnInit() {
-    this.userInfo = await this.authService.userInfo();
+    this.userInfo = await this.authService.getUserInfo();
     if(this.userInfo != null){
       this.isUserLoggedIn = true;
     }
